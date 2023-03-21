@@ -55,7 +55,7 @@ const App = () => {
         justifyContent="center"
         gutterBottom
       >
-        Consumer Auto Data 1992 to Present{"  "}{" "}
+        Consumer Auto Data 1992 to Present
       </Typography>
       <Box
         sx={{
@@ -102,6 +102,7 @@ const App = () => {
             data={consumerPriceIndexPrice}
             dataKey={"value"}
             stroke="black"
+            strokeWidth={2}
             dot={false}
             connectNulls
             name="Consumer Price Index"
@@ -115,24 +116,26 @@ const App = () => {
                 type="monotone"
                 data={usedAutoIndexPriceData}
                 dataKey={"value"}
-                stroke="purple"
+                stroke="#b33207"
+                strokeWidth={2}
                 dot={false}
                 connectNulls
                 name="Used Auto CPI"
                 yAxisId="right"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "purple", strokeWidth: 3, r: 5 }}
+                activeDot={{ stroke: "#b33207", strokeWidth: 3, r: 5 }}
               />
               <Line
                 type="monotone"
                 data={usedAutoSalesData}
                 dataKey={"value"}
-                stroke="blue"
+                stroke="#de663e"
+                strokeWidth={2}
                 dot={false}
                 name="Used Auto Sales (Millions - USD)"
                 yAxisId="left"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "blue", strokeWidth: 3, r: 5 }}
+                activeDot={{ stroke: "#de663e", strokeWidth: 3, r: 5 }}
               />
             </>
           )}
@@ -143,24 +146,26 @@ const App = () => {
                 type="monotone"
                 data={newAutoIndexPriceData}
                 dataKey={"value"}
-                stroke="teal"
+                stroke="#4c90ba"
                 dot={false}
+                strokeWidth={2}
                 connectNulls
                 name="New Auto CPI"
                 yAxisId="right"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "purple", strokeWidth: 3, r: 5 }}
+                activeDot={{ stroke: "#4c90ba", strokeWidth: 3, r: 5 }}
               />
               <Line
                 type="monotone"
                 data={retailAutoSalesData}
                 dataKey={"value"}
-                stroke="green"
+                stroke="#2bc2c2"
+                strokeWidth={2}
                 dot={false}
                 name="New Auto Sales (Millions - USD)"
                 yAxisId="left"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "green", strokeWidth: 3, r: 5 }}
+                activeDot={{ stroke: "#2bc2c2", strokeWidth: 3, r: 5 }}
               />
             </>
           )}
@@ -170,25 +175,27 @@ const App = () => {
                 type="monotone"
                 data={fourYearAutoLoanData}
                 dataKey={"value"}
-                stroke="orange"
+                stroke="#00994c"
+                strokeWidth={2}
                 dot={false}
                 connectNulls
                 name="Auto Loan Rate (Percent)"
                 yAxisId="right"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "orange", strokeWidth: 3, r: 5 }}
+                activeDot={{ stroke: "#00994c", strokeWidth: 3, r: 5 }}
               />
               <Line
                 type="monotone"
                 data={autoLoanFinanceAmountData}
                 dataKey={"value"}
                 connectNulls
-                stroke="red"
+                stroke="#006a35"
+                strokeWidth={2}
                 name="Finance Amount (USD)"
                 yAxisId="left"
                 xAxisId="xAxis"
                 dot={false}
-                activeDot={{ stroke: "red", strokeWidth: 3, r: 5 }}
+                activeDot={{ stroke: "#006a35", strokeWidth: 3, r: 5 }}
               />
             </>
           )}
@@ -215,6 +222,13 @@ const App = () => {
           />
 
           <YAxis
+            label={{
+              value: "Million",
+              angle: -90,
+              position: "insideBottomLeft",
+              default: 50,
+            }}
+            width={50}
             dataKey="value"
             data={autoLoanFinanceAmountData}
             domain={[0, 110000]}
@@ -222,6 +236,7 @@ const App = () => {
           />
           <YAxis
             dataKey="value"
+            padding="px"
             data={fourYearAutoLoanData}
             orientation="right"
             domain={[0, 315]}
