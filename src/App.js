@@ -21,7 +21,6 @@ import {
   consumerPriceIndex,
 } from "./Data";
 import Container from "@mui/material/Container";
-import DirectionsCarFilledIcon from "@mui/icons-material/DirectionsCarFilled";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
