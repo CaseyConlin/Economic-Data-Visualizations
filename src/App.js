@@ -10,6 +10,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { AutoTooltip } from "./Tooltip";
 import {
   fourYearAutoLoan,
   autoLoanFinanceAmount,
@@ -24,7 +25,7 @@ import DirectionsCarFilledIcon from "@mui/icons-material/DirectionsCarFilled";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
-import { spacing } from "@mui/system";
+import Typography from "@mui/material/Typography";
 
 const App = () => {
   const [showUsedCars, setShowUsedCars] = useState(false);
@@ -46,7 +47,17 @@ const App = () => {
         mt: 6,
       }}
     >
-      <DirectionsCarFilledIcon />
+      <Typography
+        sx={{ fontSize: 18, fontWeight: 800 }}
+        variant="h2"
+        component="div"
+        display="flex"
+        alignContent="start"
+        justifyContent="center"
+        gutterBottom
+      >
+        Consumer Auto Data 1992 to Present{"  "}{" "}
+      </Typography>
       <Box
         sx={{
           display: "flex",
@@ -97,7 +108,7 @@ const App = () => {
             name="Consumer Price Index"
             yAxisId="right"
             xAxisId="xAxis"
-            activeDot={{ stroke: "black", strokeWidth: 2, r: 5 }}
+            activeDot={{ stroke: "black", strokeWidth: 3, r: 5 }}
           />
           {showUsedCars && (
             <>
@@ -111,7 +122,7 @@ const App = () => {
                 name="Used Auto CPI"
                 yAxisId="right"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "purple", strokeWidth: 2, r: 5 }}
+                activeDot={{ stroke: "purple", strokeWidth: 3, r: 5 }}
               />
               <Line
                 type="monotone"
@@ -122,7 +133,7 @@ const App = () => {
                 name="Used Auto Sales (Millions - USD)"
                 yAxisId="left"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "blue", strokeWidth: 2, r: 5 }}
+                activeDot={{ stroke: "blue", strokeWidth: 3, r: 5 }}
               />
             </>
           )}
@@ -139,7 +150,7 @@ const App = () => {
                 name="New Auto CPI"
                 yAxisId="right"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "purple", strokeWidth: 2, r: 5 }}
+                activeDot={{ stroke: "purple", strokeWidth: 3, r: 5 }}
               />
               <Line
                 type="monotone"
@@ -150,7 +161,7 @@ const App = () => {
                 name="New Auto Sales (Millions - USD)"
                 yAxisId="left"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "green", strokeWidth: 2, r: 5 }}
+                activeDot={{ stroke: "green", strokeWidth: 3, r: 5 }}
               />
             </>
           )}
@@ -166,7 +177,7 @@ const App = () => {
                 name="Auto Loan Rate (Percent)"
                 yAxisId="right"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "orange", strokeWidth: 2, r: 5 }}
+                activeDot={{ stroke: "orange", strokeWidth: 3, r: 5 }}
               />
               <Line
                 type="monotone"
@@ -178,32 +189,27 @@ const App = () => {
                 yAxisId="left"
                 xAxisId="xAxis"
                 dot={false}
-                activeDot={{ stroke: "red", strokeWidth: 2, r: 5 }}
+                activeDot={{ stroke: "red", strokeWidth: 3, r: 5 }}
               />
             </>
           )}
-          <Tooltip
-            formatter={(value) => new Intl.NumberFormat("en").format(value)}
-            wrapperStyle={{ width: 100, backgroundColor: "red" }}
+          <Tooltip content={<AutoTooltip />} cursor={{ fill: "transparent" }} />
+
+          <Legend
+            align="center"
+            wrapperStyle={{
+              bottom: 0,
+              paddingTop: 10,
+            }}
           />
-          {/* <Legend
-          width={100}
-          wrapperStyle={{
-            top: 20,
-            right: 20,
-            height: "200px",
-            width: "60px",
-            display: "flex",
-            flexDirection: "column",
-            backgroundColor: "#f5f5f5",
-            border: "1px solid #d5d5d5",
-            borderRadius: 3,
-            lineHeight: "40px",
-          }}
-        /> */}
+
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
           <XAxis
             data={usedAutoIndexPriceData}
+            tickFormatter={(tickItem) => {
+              return new Date(tickItem).getFullYear();
+            }}
+            interval={25}
             dataKey="date"
             xAxisId="xAxis"
             allowDuplicatedCategory={false}
