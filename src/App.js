@@ -3,6 +3,8 @@ import { useState } from "react";
 import {
   LineChart,
   Line,
+  Bar,
+  ComposedChart,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -19,7 +21,14 @@ import {
   usedAutoIndexPrice,
   newAutoIndexPrice,
   consumerPriceIndex,
-} from "./Data";
+} from "./AutoData";
+import {
+  totalHousingUnits,
+  vacantHousingUnits,
+  ownerOccupiedHousingUnits,
+  renterOccupiedHousingUnits,
+  medianHomeSalePrice,
+} from "./HousingData";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -38,6 +47,44 @@ const App = () => {
   const usedAutoIndexPriceData = usedAutoIndexPrice.observations;
   const newAutoIndexPriceData = newAutoIndexPrice.observations;
   const consumerPriceIndexPrice = consumerPriceIndex.observations;
+
+  // const totalHousingUnitsData = totalHousingUnits.observations;
+  // const vacantHousingUnitsData = vacantHousingUnits.observations;
+  // const ownerOccupiedHousingUnitsData = ownerOccupiedHousingUnits.observations;
+  // const renterOccupiedHousingUnitsData =
+  //   renterOccupiedHousingUnits.observations;
+
+  const compileData = (...array) => {
+    const compiledArray = [];
+
+    array.map((dataPoint) => {
+      dataPoint.observations.map((observation) => {
+        const obj = { date: observation.date };
+        const index = compiledArray.findIndex(
+          (element) => element.date === obj.date
+        );
+        if (index === -1) {
+          // if (!compiledArray.find((element) => element.date === obj.date)) {
+          obj[dataPoint.id] = observation.value;
+          return compiledArray.push(obj);
+        } else {
+          return (compiledArray[index][dataPoint.id] = observation.value);
+        }
+      });
+      return compiledArray;
+    });
+
+    return compiledArray;
+  };
+  // const medianHomeSalePriceData = medianHomeSalePrice.observations;
+
+  const housingStackData = compileData(
+    totalHousingUnits,
+    vacantHousingUnits,
+    renterOccupiedHousingUnits,
+    ownerOccupiedHousingUnits,
+    medianHomeSalePrice
+  );
 
   return (
     <Container
@@ -215,22 +262,26 @@ const App = () => {
             tickFormatter={(tickItem) => {
               return new Date(tickItem).getFullYear();
             }}
-            interval={25}
             dataKey="date"
             xAxisId="xAxis"
             allowDuplicatedCategory={false}
+            interval={"preserveStartEnd"}
           />
 
           <YAxis
             label={{
               value: "Million",
               angle: -90,
-              position: "insideBottomLeft",
-              default: 50,
+              position: "left",
+
+              offset: -20,
             }}
-            width={50}
+            tickFormatter={(tickItem) => {
+              return tickItem / 1000;
+            }}
+            interval="preserveStartEnd"
             dataKey="value"
-            data={autoLoanFinanceAmountData}
+            data={retailAutoSalesData}
             domain={[0, 110000]}
             yAxisId="left"
           />
@@ -243,6 +294,45 @@ const App = () => {
             yAxisId="right"
           />
         </LineChart>
+      </ResponsiveContainer>
+      <ResponsiveContainer width="95%" height={400}>
+        <ComposedChart
+          width={500}
+          height={300}
+          data={housingStackData}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" allowDuplicatedCategory={false} />
+          <YAxis domain={[0, 150000]} id="left" />
+          <YAxis orientation="right" domain={[0, 500000]} yAxisId="right" />
+          <Tooltip />
+          <Legend />
+          <Bar
+            dataKey="ownerOccupiedHousingUnits"
+            fill="#82ca9d"
+            barSize={50}
+            stackId="a"
+          />
+          <Bar
+            dataKey="vacantHousingUnits"
+            fill="black"
+            barSize={50}
+            stackId="a"
+          />
+          <Bar
+            dataKey="renterOccupiedHousingUnits"
+            fill="red"
+            barSize={50}
+            stackId="a"
+          />
+          <Line dataKey="medianHomeSalePrice" stroke="red" yAxisId="right" />
+        </ComposedChart>
       </ResponsiveContainer>
     </Container>
   );
