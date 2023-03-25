@@ -59,7 +59,7 @@ export const AutoChart = (props) => {
             type="monotone"
             data={consumerPriceIndexPrice}
             dataKey={"value"}
-            stroke="black"
+            stroke="#2196f3"
             strokeWidth={2}
             dot={false}
             iconType="line"
@@ -75,26 +75,26 @@ export const AutoChart = (props) => {
                 type="monotone"
                 data={usedAutoIndexPriceData}
                 dataKey={"value"}
-                stroke="#b33207"
+                stroke="#e91e63"
                 strokeWidth={2}
                 dot={false}
                 connectNulls
                 name="Used Auto CPI"
                 yAxisId="right"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "#b33207", strokeWidth: 1, r: 5 }}
+                activeDot={{ stroke: "#e91e63", strokeWidth: 1, r: 5 }}
               />
               <Line
                 type="monotone"
                 data={usedAutoSalesData}
                 dataKey={"value"}
-                stroke="#de663e"
+                stroke="#9c27b0 "
                 strokeWidth={2}
                 dot={false}
                 name="Used Auto Sales($M)"
                 yAxisId="left"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "#de663e", strokeWidth: 1, r: 5 }}
+                activeDot={{ stroke: "#9c27b0 ", strokeWidth: 1, r: 5 }}
               />
             </>
           )}
@@ -105,26 +105,26 @@ export const AutoChart = (props) => {
                 type="monotone"
                 data={newAutoIndexPriceData}
                 dataKey={"value"}
-                stroke="#4c90ba"
+                stroke="#8bc34a"
                 dot={false}
                 strokeWidth={2}
                 connectNulls
                 name="New Auto CPI"
                 yAxisId="right"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "#4c90ba", strokeWidth: 1, r: 5 }}
+                activeDot={{ stroke: "#8bc34a", strokeWidth: 1, r: 5 }}
               />
               <Line
                 type="monotone"
                 data={retailAutoSalesData}
                 dataKey={"value"}
-                stroke="#2bc2c2"
+                stroke="#4caf50"
                 strokeWidth={2}
                 dot={false}
                 name="New Auto Sales($M)"
                 yAxisId="left"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "#2bc2c2", strokeWidth: 1, r: 5 }}
+                activeDot={{ stroke: "#4caf50", strokeWidth: 1, r: 5 }}
               />
             </>
           )}
@@ -134,27 +134,27 @@ export const AutoChart = (props) => {
                 type="monotone"
                 data={fourYearAutoLoanData}
                 dataKey={"value"}
-                stroke="#00994c"
+                stroke="#ff6f00"
                 strokeWidth={2}
                 dot={false}
                 connectNulls
                 name="Auto Loan Rate(%)"
                 yAxisId="right"
                 xAxisId="xAxis"
-                activeDot={{ stroke: "#00994c", strokeWidth: 1, r: 5 }}
+                activeDot={{ stroke: "#ff6f00", strokeWidth: 1, r: 5 }}
               />
               <Line
                 type="monotone"
                 data={autoLoanFinanceAmountData}
                 dataKey={"value"}
                 connectNulls
-                stroke="#006a35"
+                stroke="#ff9800"
                 strokeWidth={2}
                 name="Finance Amount(USD)"
                 yAxisId="left"
                 xAxisId="xAxis"
                 dot={false}
-                activeDot={{ stroke: "#006a35", strokeWidth: 1, r: 5 }}
+                activeDot={{ stroke: "#ff9800", strokeWidth: 1, r: 5 }}
               />
             </>
           )}
