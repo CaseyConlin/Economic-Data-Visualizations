@@ -1,31 +1,13 @@
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import { nameFormatter } from "../Helpers/nameFormatter";
+import { bull } from "../UI/Bull";
 
 export const renderLegend = (props) => {
   const { payload } = props;
 
-  const bull = (
-    <Box
-      component="span"
-      sx={{ display: "inline-block", mx: "5px", transform: "scale(2.5)" }}
-    >
-      •
-    </Box>
-  );
-
-  const nameFormatter = (name) => {
-    if (name === "vacantHousingUnits") return (name = "Vacant Units");
-    else if (name === "renterOccupiedHousingUnits")
-      return (name = "Renter Occupied Units");
-    else if (name === "ownerOccupiedHousingUnits")
-      return (name = "Owner Occupied Units");
-    else if (name === "medianHomeSalePrice") return (name = "Home Sale Price");
-    else if (name === "rentCPI") return (name = "Rent CPI");
-    else return name;
-  };
   return (
     <Box
       key={payload}
@@ -62,7 +44,6 @@ export const renderLegend = (props) => {
                 {nameFormatter(pld.value)}
               </Typography>
             </Grid>
-            //  chart icon and type info https://recharts.org/en-US/api/Legend#iconSize //https://recharts.org/en-US/api/Legend#payload
           ))}
         </Grid>
       </Card>

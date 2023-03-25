@@ -2,16 +2,10 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import { nameFormatter } from "../Helpers/nameFormatter";
+import { bull } from "../UI/Bull";
 
-export const AutoTooltip = ({ active, payload, label }) => {
-  const bull = (
-    <Box
-      component="span"
-      sx={{ display: "inline-block", mx: "5px", transform: "scale(2.5)" }}
-    >
-      •
-    </Box>
-  );
+export const ChartTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     //Modify date format for tooltip
     const date = new Date(label);
@@ -30,18 +24,6 @@ export const AutoTooltip = ({ active, payload, label }) => {
       "December",
     ][date.getMonth()];
     const labelDate = month + " " + date.getFullYear();
-
-    const nameFormatter = (name) => {
-      if (name === "vacantHousingUnits") return (name = "Vacant Units");
-      else if (name === "renterOccupiedHousingUnits")
-        return (name = "Renter Occupied Units");
-      else if (name === "ownerOccupiedHousingUnits")
-        return (name = "Owner Occupied Units");
-      else if (name === "medianHomeSalePrice")
-        return (name = "Home Sale Price");
-      else if (name === "rentCPI") return (name = "Rent CPI");
-      else return name;
-    };
 
     const valueFormatter = (value) => {
       if (value !== ".") {
