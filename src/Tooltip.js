@@ -4,6 +4,14 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 export const AutoTooltip = ({ active, payload, label }) => {
+  const bull = (
+    <Box
+      component="span"
+      sx={{ display: "inline-block", mx: "5px", transform: "scale(2.5)" }}
+    >
+      •
+    </Box>
+  );
   if (active && payload && payload.length) {
     //Modify date format for tooltip
     const date = new Date(label);
@@ -21,20 +29,32 @@ export const AutoTooltip = ({ active, payload, label }) => {
       "November",
       "December",
     ][date.getMonth()];
-    var labelDate = month + " " + date.getFullYear();
+    const labelDate = month + " " + date.getFullYear();
+
+    const nameFormatter = (name) => {
+      if (name === "vacantHousingUnits") return (name = "Vacant Units");
+      else if (name === "renterOccupiedHousingUnits")
+        return (name = "Renter Occupied Units");
+      else if (name === "ownerOccupiedHousingUnits")
+        return (name = "Owner Occupied Units");
+      else if (name === "medianHomeSalePrice")
+        return (name = "Home Sale Price");
+      else if (name === "rentCPI") return (name = "Rent CPI");
+      else return name;
+    };
 
     const valueFormatter = (value) => {
       if (value !== ".") {
         return (value = new Intl.NumberFormat("en").format(value));
       }
-      return (value = "Not Available for this time period.");
+      return (value = "Unavailable");
     };
     return (
-      <Box sx={{ minWidth: 275, mx: 3 }}>
+      <Box sx={{ mx: 3 }}>
         <Card variant="outlined">
           <CardContent>
             <Typography
-              sx={{ fontSize: 18, fontWeight: 800 }}
+              sx={{ fontSize: 15, fontWeight: 800 }}
               variant="h5"
               component="div"
               gutterBottom
@@ -49,11 +69,11 @@ export const AutoTooltip = ({ active, payload, label }) => {
                   variant="body2"
                   sx={{ pb: 0.5 }}
                 >
-                  <div key={pld.name + "name"} style={{ color: pld.stroke }}>
-                    {pld.name}
-                  </div>
-                  <div key={pld.name + "value"} style={{ color: pld.stroke }}>
-                    {valueFormatter(pld.value)}
+                  <div key={pld.name + "name"}>
+                    <span style={{ color: pld.stroke || pld.fill }}>
+                      {bull}
+                    </span>{" "}
+                    {nameFormatter(pld.name)} - {valueFormatter(pld.value)}
                   </div>
                 </Typography>
               ))}
